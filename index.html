@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スマートフロー | AIでバックオフィス業務を自動化</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-yellow: #FFD633;
+            --orange: #D67855;
+            --cyan: #4DD4D4;
+            --purple: #8B6B9F;
+            --dark-text: #2D2D2D;
+            --light-text: #5A5A5A;
+            --white: #FFFFFF;
+            --light-bg: #FAFBFC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--white);
+            color: var(--dark-text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-img {
+            height: 50px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        .cta-button {
+            padding: 0.75rem 1.8rem;
+            background: var(--cyan);
+            border: none;
+            border-radius: 50px;
+            color: var(--white);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(77, 212, 212, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            overflow: hidden;
+            background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+        }
+
+        /* Organic Shapes */
+        .shape {
+            position: absolute;
+            border-radius: 50% 45% 55% 50%;
+            opacity: 0.8;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .shape1 {
+            width: 400px;
+            height: 400px;
+            background: var(--orange);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 500px;
+            height: 450px;
+            background: var(--cyan);
+            top: 30%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .shape3 {
+            width: 350px;
+            height: 380px;
+            background: var(--primary-yellow);
+            bottom: 15%;
+            left: 8%;
+            animation-delay: -10s;
+        }
+
+        .shape4 {
+            width: 300px;
+            height: 300px;
+            background: var(--purple);
+            bottom: 20%;
+            right: 15%;
+            animation-delay: -15s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+                border-radius: 50% 45% 55% 50%;
+            }
+            25% {
+                transform: translate(20px, -20px) rotate(5deg);
+                border-radius: 45% 55% 50% 45%;
+            }
+            50% {
+                transform: translate(-20px, 20px) rotate(-5deg);
+                border-radius: 55% 50% 45% 55%;
+            }
+            75% {
+                transform: translate(15px, 15px) rotate(3deg);
+                border-radius: 50% 45% 55% 45%;
+            }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .secondary-button {
+            padding: 0.75rem 1.8rem;
+            background: transparent;
+            border: 2px solid var(--dark-text);
+            border-radius: 50px;
+            color: var(--dark-text);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .secondary-button:hover {
+            background: var(--dark-text);
+            color: var(--white);
+        }
+
+        /* Illustration */
+        .hero-visual {
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-cards {
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .stat-icon.icon1 { background: var(--cyan); }
+        .stat-icon.icon2 { background: var(--primary-yellow); }
+        .stat-icon.icon3 { background: var(--orange); }
+
+        .stat-content h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-content p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 5%;
+            background: var(--white);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 5rem;
+            align-items: start;
+            margin-top: 3rem;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .profile-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 2px solid #F0F0F0;
+            text-align: center;
+            position: sticky;
+            top: 120px;
+        }
+
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: block;
+            object-fit: cover;
+            border: 4px solid var(--cyan);
+        }
+
+        .profile-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .profile-card .role {
+            text-align: center;
+            color: var(--cyan);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .profile-card .name-reading {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .profile-card p {
+            color: var(--light-text);
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 2;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 5%;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            background: rgba(77, 212, 212, 0.1);
+            border-radius: 50px;
+            color: var(--cyan);
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--light-text);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border: 2px solid #F0F0F0;
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--cyan);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card:nth-child(1) .service-icon { background: var(--cyan); }
+        .service-card:nth-child(2) .service-icon { background: var(--primary-yellow); }
+        .service-card:nth-child(3) .service-icon { background: var(--orange); }
+        .service-card:nth-child(4) .service-icon { background: var(--purple); }
+        .service-card:nth-child(5) .service-icon { background: var(--cyan); }
+        .service-card:nth-child(6) .service-icon { background: var(--primary-yellow); }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .service-card p {
+            color: var(--light-text);
+            line-height: 1.8;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 6rem 5%;
+            background: var(--light-bg);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .benefit-number {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-item:nth-child(1) .benefit-number { color: var(--cyan); }
+        .benefit-item:nth-child(2) .benefit-number { color: var(--orange); }
+        .benefit-item:nth-child(3) .benefit-number { color: var(--purple); }
+
+        .benefit-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .benefit-item p {
+            color: var(--light-text);
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 5%;
+            background: var(--white);
+        }
+
+        .cta-box {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--cyan) 0%, #3AB8B8 100%);
+            border-radius: 30px;
+            padding: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+        }
+
+        .cta-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box .cta-button {
+            background: var(--white);
+            color: var(--cyan);
+            font-size: 1.1rem;
+            padding: 1rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box .cta-button:hover {
+            background: var(--primary-yellow);
+            color: var(--dark-text);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            background: var(--dark-text);
+            color: var(--white);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand .logo-img {
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1rem;
+            color: var(--cyan);
+            font-weight: 700;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content, .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .shape {
+                width: 250px !important;
+                height: 250px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <img src="logo.png" alt="スマートフロー" class="logo-img">
+            <ul class="nav-links">
+                <li><a href="#services">サービス</a></li>
+                <li><a href="#benefits">導入効果</a></li>
+                <li><a href="portfolio.html">ポートフォリオ</a></li>
+                <li><a href="#about">代表者について</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+            <a href="contact.html" class="cta-button">無料相談</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Organic Shapes -->
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    人の手を止めて、<br>
+                    ビジネスを動かす。
+                </h1>
+                <p class="subtitle">
+                    毎日繰り返される作業に、時間を奪われていませんか？<br>
+                    AIがあなたのバックオフィスを24時間365日、完璧に動かし続けます。
+                </p>
+                <div class="hero-buttons">
+                    <a href="#services" class="secondary-button">詳しく見る</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon icon1">⚡</div>
+                        <div class="stat-content">
+                            <h3>最大80%削減</h3>
+                            <p>月間100時間以上の作業時間を削減</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon icon2">✓</div>
+                        <div class="stat-content">
+                            <h3>95%の精度</h3>
+                            <p>ヒューマンエラーをほぼゼロに</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon icon3">🔄</div>
+                        <div class="stat-content">
+                            <h3>24時間稼働</h3>
+                            <p>AIが休まず業務を処理します</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">SERVICES</span>
+                <h2>自動化できる業務</h2>
+                <p>スマートフローが提供する包括的なAI自動化ソリューション</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📄</div>
+                    <h3>請求書処理</h3>
+                    <p>請求書の受領から承認までを完全自動化。OCR技術で紙の請求書もデジタル化し、会計システムへ自動連携します。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>経費精算</h3>
+                    <p>領収書の読み取りから精算処理まで自動化。承認フローも最適化し、月末の精算業務を大幅に削減します。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⌨️</div>
+                    <h3>データ入力</h3>
+                    <p>定型的なデータ入力作業をAIが代行。高精度な文字認識で紙媒体からのデータ化も瞬時に完了します。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>帳票作成</h3>
+                    <p>見積書、納品書、請求書などの帳票を自動生成。テンプレートに基づき、正確な書類を即座に作成します。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💬</div>
+                    <h3>チャットボット</h3>
+                    <p>社内問い合わせ対応を自動化。FAQから複雑な業務ナレッジまで、24時間365日対応可能なAIアシスタントを構築します。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔄</div>
+                    <h3>ワークフロー統合</h3>
+                    <p>既存システムとシームレスに連携。複数のツールをまたいだ業務プロセス全体を自動化します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">BENEFITS</span>
+                <h2>導入効果</h2>
+                <p>スマートフローがもたらす確かな成果</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-number">60%</div>
+                    <h3>人件費削減</h3>
+                    <p>バックオフィス業務の大幅な効率化により、平均60%の人件費削減を実現します</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">3倍</div>
+                    <h3>生産性向上</h3>
+                    <p>単純作業から解放され、コア業務に集中。チーム全体の生産性が3倍になります</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">95%</div>
+                    <h3>処理精度</h3>
+                    <p>AIによる高精度な処理で、ヒューマンエラーをほぼゼロに削減できます</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="cta-box">
+            <h2>今すぐバックオフィス業務を変革</h2>
+            <p>AIの知識は不要。専門チームが導入から運用まで完全サポートします</p>
+            <div style="background: rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; position: relative; z-index: 1;">
+                <p style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;">💰 補助金活用で導入コスト最大3/4OFF</p>
+                <p style="font-size: 1rem; opacity: 1;">IT導入補助金やものづくり補助金などを活用すれば、導入費用を大幅に抑えられます。申請サポートも承ります。</p>
+            </div>
+            <a href="contact.html" class="cta-button">無料相談を予約する</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">ABOUT</span>
+                <h2>代表者について</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="profile-card">
+                        <img src="profile.png" alt="小澤千智" class="profile-photo">
+                        <h3>小澤 千智</h3>
+                        <p class="role">代表 / AI導入支援・研修</p>
+                        <p class="name-reading">おざわ ちさと</p>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h2>経歴・専門分野</h2>
+                    <p>
+                        オーストラリア留学後、観光協会で国際交流コーディネーターとして、異文化交流と相互理解の促進に従事。その後IT業界に転身し、自動車メーカーでエンジニアとして電気自動車の開発に携わりました。
+                    </p>
+                    <p>
+                        現在は企業向けAI導入支援を提供。定型業務・標準化された業務のAI自動化を専門としています。国際交流で培ったコミュニケーション力、EV開発で得た技術力、そして現場業務への深い理解を活かし、技術とビジネスの架け橋となることを使命としています。
+                    </p>
+                    <p>
+                        特に、IT知識のない方々にもわかりやすくAI活用を説明することを得意とし、企業が業務効率化を実現できる研修・導入支援を行っています。
+                    </p>
+                    <p style="margin-top: 1.5rem;">
+                        <strong>専門分野：</strong>AI導入支援、業務自動化、バックオフィス効率化、研修・トレーニング
+                    </p>
+                    <p>
+                        <strong>経歴：</strong>国際交流コーディネーター → 自動車メーカーエンジニア（EV開発）→ AI導入支援スペシャリスト
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png" alt="スマートフロー" class="logo-img">
+                <p>中小企業のバックオフィス業務をAIで自動化し、本来注力すべき業務にリソースを集中させるサポートをします。</p>
+                <p style="font-size: 0.9rem;">代表：小澤 千智（おざわ ちさと）<br>AI導入支援・研修</p>
+            </div>
+            <div class="footer-links">
+                <h4>サービス</h4>
+                <ul>
+                    <li><a href="#services">請求書処理</a></li>
+                    <li><a href="#services">経費精算</a></li>
+                    <li><a href="#services">データ入力</a></li>
+                    <li><a href="#services">チャットボット</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>企業情報</h4>
+                <ul>
+                    <li><a href="#about">代表者について</a></li>
+                    <li><a href="portfolio.html">ポートフォリオ</a></li>
+                    <li><a href="https://note.com/chisato162" target="_blank">ブログ（note）</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>お問い合わせ</h4>
+                <ul>
+                    <li><a href="/cdn-cgi/l/email-protection#d9bab1b0aab8adb6f7b6a3b8aeb899aab4b8abadbfb5b6aeb3a9f7bab6b4"><span class="__cf_email__" data-cfemail="305358594351445f1e5f4a51475170435d514244565c5f475a401e535f5d">[email&#160;protected]</span></a></li>
+                    <li><a href="tel:08067936223">080-6793-6223</a></li>
+                    <li><a href="contact.html">無料相談予約</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SmartFlow. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.se
