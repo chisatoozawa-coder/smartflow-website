@@ -1,0 +1,24 @@
+# 中小企業向け営業自動化ツール - 依存ライブラリ
+
+# データ管理
+pandas>=2.0.0
+
+# ウェブスクレイピング
+playwright>=1.40.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Gmail API
+google-api-python-client>=2.100.0
+google-auth-httplib2>=0.1.0
+google-auth-oauthlib>=1.1.0
+
+# Claude API
+anthropic>=0.18.0
+
+# 環境変数管理
+python-dotenv>=1.0.0
+
+# ユーティリティ
+requests>=2.31.0
+tqdm>=4.66.0
