@@ -15,9 +15,11 @@ export async function generateImage(
   const client = getClient();
 
   const model = client.getGenerativeModel({
-    model: "gemini-2.0-flash-exp",
+    model: "gemini-2.5-flash",
     generationConfig: {
       responseModalities: ["image", "text"],
+      // 思考モード: 画像の品質を上げるために推論を有効化
+      thinkingConfig: { thinkingBudget: 1024 },
     } as Record<string, unknown>,
   });
 
@@ -52,7 +54,7 @@ export async function generateImage(
 // テキストから投稿用の画像プロンプトを生成
 export async function generateImagePrompt(postText: string): Promise<string> {
   const client = getClient();
-  const model = client.getGenerativeModel({ model: "gemini-2.0-flash" });
+  const model = client.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   const result = await model.generateContent(
     `Based on this social media post text, generate a concise English image prompt (1-2 sentences) for creating an eye-catching illustration. The image should be suitable for a tech/AI news post on social media.
