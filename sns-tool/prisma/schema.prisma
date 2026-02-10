@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 監視対象のSNSアカウント
+model Account {
+  id         String       @id @default(cuid())
+  platform   String       // "threads" or "x"
+  username   String
+  profileUrl String
+  isActive   Boolean      @default(true)
+  createdAt  DateTime     @default(now())
+  posts      SourcePost[]
+
+  @@unique([platform, username])
+}
+
+// 取得した元投稿
+model SourcePost {
+  id           String   @id @default(cuid())
+  accountId    String
+  account      Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  platform     String
+  originalUrl  String
+  originalText String
+  mediaUrls    String?  // JSON: ["url1", "url2"]
+  engagement   Int      @default(0) // いいね+リポスト数
+  fetchedAt    DateTime @default(now())
+  drafts       Draft[]
+
+  @@unique([platform, originalUrl])
+}
+
+// リライト済み下書き / 予約投稿
+model Draft {
+  id              String      @id @default(cuid())
+  sourcePostId    String?
+  sourcePost      SourcePost? @relation(fields: [sourcePostId], references: [id], onDelete: SetNull)
+  originalText    String?     // URL入力時の元テキスト
+  rewrittenText   String
+  imageUrl        String?     // 生成画像 or 取得画像
+  imageSource     String?     // "gemini", "original", "manual"
+  status          String      @default("draft") // "draft", "scheduled", "publishing", "published", "failed"
+  errorMessage    String?
+  scheduledAt     DateTime?
+  publishedAt     DateTime?
+  platforms       String      @default("[\"x\",\"threads\"]") // JSON array
+  xPostId         String?
+  threadsPostId   String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}

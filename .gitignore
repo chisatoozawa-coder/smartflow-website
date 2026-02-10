@@ -1,0 +1,14 @@
+# SNS Tool
+sns-tool/node_modules/
+sns-tool/.next/
+sns-tool/.env
+sns-tool/.env.local
+sns-tool/.env.development.local
+sns-tool/.env.test.local
+sns-tool/.env.production.local
+sns-tool/prisma/dev.db
+sns-tool/prisma/dev.db-journal
+sns-tool/src/generated/
+
+# OS
+.DS_Store
