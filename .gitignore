@@ -6,6 +6,8 @@ sns-tool/.env.local
 sns-tool/.env.development.local
 sns-tool/.env.test.local
 sns-tool/.env.production.local
+sns-tool/dev.db
+sns-tool/dev.db-journal
 sns-tool/prisma/dev.db
 sns-tool/prisma/dev.db-journal
 sns-tool/src/generated/
