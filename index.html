@@ -897,40 +897,15 @@
     <svg id="chat-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
   </button>
 
-  <!-- チャットウィンドウ -->
-  <div id="chatbot-window" style="display: none; position: absolute; bottom: 80px; right: 0; width: 350px; height: 500px; background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); overflow: hidden; border: 1px solid #e2e8f0;">
-    <iframe 
-      src="https://ais-pre-2n5n4oasd5p6jno6hqyqic-10732679471.asia-northeast1.run.app/?embed=true&v=2" 
-      style="width: 100%; height: 100%; border: none;" 
-      title="Chatbot"
-    ></iframe>
-  </div>
+  <div style="position:fixed; bottom:20px; right:20px; z-index:9999;">
+  <a href="https://ais-pre-2n5n4oasd5p6jno6hqyqic-10732679471.asia-northeast1.run.app" 
+     target="_blank" 
+     rel="noopener noreferrer"
+     style="background:#4285f4; color:white; padding:12px 20px; border-radius:50px; text-decoration:none; box-shadow:0 4px 12px rgba(0,0,0,0.3); font-weight:bold; font-size:14px;">
+    💬 AIチャット
+  </a>
 </div>
 
-<script>
-  (function() {
-    var btn = document.getElementById('chatbot-toggle-btn');
-    var win = document.getElementById('chatbot-window');
-    if(!btn || !win) return;
-    
-    var isOpen = false;
-    
-    btn.onclick = function(e) {
-      e.preventDefault();
-      isOpen = !isOpen;
-      
-      // ウィンドウの表示・非表示
-      win.style.display = isOpen ? 'block' : 'none';
-      
-      // ボタンの色とアイコンの切り替え
-      btn.style.background = isOpen ? '#ef4444' : '#4f46e5';
-      btn.innerHTML = isOpen 
-        ? '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>'
-        : '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>';
-    };
-  })();
-</script>
-<!-- Chatbot Widget End -->
 
 </body>
 </html>
