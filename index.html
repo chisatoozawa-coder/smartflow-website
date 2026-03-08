@@ -890,21 +890,40 @@
         document.querySelectorAll('.section').forEach(el => observer.observe(el));
     </script>
 
-    <!-- Chatbot Widget Start -->
-<div id="chatbot-widget-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 100000;">
-  <!-- チャットを開くボタン -->
-  <button id="chatbot-toggle-btn" style="width: 60px; height: 60px; border-radius: 50%; background: #4f46e5; color: white; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; outline: none !important; transition: transform 0.2s ease;">
-    <svg id="chat-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
-  </button>
+<!-- 右下固定チャットボタン -->
+<button id="chatToggle" 
+        style="position:fixed; bottom:20px; right:20px; z-index:9999; background:#4285f4; color:white; padding:15px 20px; border:none; border-radius:50px; cursor:pointer; box-shadow:0 6px 20px rgba(66,133,244,0.4); font-weight:bold; font-size:16px; width:60px; height:60px; display:flex; align-items:center; justify-content:center;">
+  💬
+</button>
 
-  <div style="position:fixed; bottom:20px; right:20px; z-index:9999;">
-  <a href="https://ais-pre-2n5n4oasd5p6jno6hqyqic-10732679471.asia-northeast1.run.app" 
-     target="_blank" 
-     rel="noopener noreferrer"
-     style="background:#4285f4; color:white; padding:12px 20px; border-radius:50px; text-decoration:none; box-shadow:0 4px 12px rgba(0,0,0,0.3); font-weight:bold; font-size:14px;">
-    💬 AIチャット
-  </a>
+<!-- 折りたたみチャットエリア（初期非表示） -->
+<div id="chatContainer" style="position:fixed; bottom:90px; right:20px; width:350px; height:450px; z-index:9998; display:none; background:white; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,0.3); overflow:hidden; border:3px solid #4285f4;">
+  <!-- ヘッダー -->
+  <div style="background:#4285f4; color:white; padding:15px; text-align:center; font-weight:bold; font-size:16px; position:relative;">
+    🤖 AIチャット
+    <span onclick="toggleChat()" style="position:absolute; right:15px; top:15px; cursor:pointer; font-size:20px;">×</span>
+  </div>
+  <!-- チャットiframe -->
+  <iframe src="https://ais-pre-2n5n4oasd5p6jno6hqyqic-10732679471.asia-northeast1.run.app" 
+          style="width:100%; height:calc(100% - 60px); border:none;"></iframe>
 </div>
+
+<script>
+function toggleChat() {
+  var container = document.getElementById('chatContainer');
+  var button = document.getElementById('chatToggle');
+  if (container.style.display === 'none') {
+    container.style.display = 'block';
+    button.innerHTML = '❌';
+    button.style.width = '60px';
+    button.style.height = '60px';
+  } else {
+    container.style.display = 'none';
+    button.innerHTML = '💬';
+  }
+}
+</script>
+
 
 
 </body>
