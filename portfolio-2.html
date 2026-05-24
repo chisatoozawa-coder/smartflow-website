@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポートフォリオ | スマートフロー</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-yellow: #FFD633;
+            --orange: #D67855;
+            --cyan: #4DD4D4;
+            --purple: #8B6B9F;
+            --dark-text: #2D2D2D;
+            --light-text: #5A5A5A;
+            --white: #FFFFFF;
+            --light-bg: #FAFBFC;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--white);
+            color: var(--dark-text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 1rem 5%;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1400px; margin: 0 auto;
+        }
+
+        .logo-img { height: 50px; }
+
+        .nav-links {
+            display: flex; gap: 2.5rem; list-style: none; align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--dark-text); text-decoration: none;
+            font-weight: 500; transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--cyan); }
+
+        .cta-button {
+            padding: 0.75rem 1.8rem;
+            background: var(--cyan); border: none; border-radius: 50px;
+            color: var(--white); font-weight: 700; cursor: pointer;
+            transition: all 0.3s; text-decoration: none; display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(77,212,212,0.3);
+        }
+
+        .page-hero {
+            padding: 8rem 5% 4rem;
+            background: linear-gradient(135deg, var(--light-bg) 0%, var(--white) 100%);
+            text-align: center;
+        }
+
+        .page-hero .section-label {
+            display: inline-block; padding: 0.4rem 1.2rem;
+            background: rgba(77,212,212,0.1); border-radius: 50px;
+            color: var(--cyan); font-size: 0.85rem; font-weight: 700;
+            margin-bottom: 1rem; letter-spacing: 1px;
+        }
+
+        .page-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+
+        .page-hero p {
+            font-size: 1.2rem; color: var(--light-text);
+            max-width: 700px; margin: 0 auto;
+        }
+
+        .portfolio { padding: 4rem 5%; background: var(--white); }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .portfolio-card {
+            background: var(--white);
+            border: 2px solid #F0F0F0;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--cyan);
+        }
+
+        .portfolio-image {
+            width: 100%; height: 180px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3.5rem;
+        }
+
+        .portfolio-content { padding: 1.8rem; }
+
+        .portfolio-category {
+            display: inline-block; padding: 0.3rem 1rem;
+            background: rgba(77,212,212,0.1); border-radius: 50px;
+            color: var(--cyan); font-size: 0.82rem; font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .portfolio-card h3 {
+            font-size: 1.25rem; margin-bottom: 0.6rem; font-weight: 700;
+        }
+
+        .portfolio-card .client {
+            font-size: 0.88rem; color: var(--light-text);
+            margin-bottom: 0.8rem; font-weight: 500;
+        }
+
+        .portfolio-card p {
+            color: var(--light-text); line-height: 1.8;
+            font-size: 0.95rem; margin-bottom: 1rem;
+        }
+
+        .portfolio-tags {
+            display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--light-bg); border-radius: 20px;
+            font-size: 0.8rem; color: var(--light-text);
+        }
+
+        footer {
+            padding: 3rem 5%;
+            background: var(--dark-text);
+            color: var(--white);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+        }
+
+        .footer-brand .logo-img { margin-bottom: 1rem; }
+        .footer-brand p { color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 1rem; }
+        .footer-links h4 { margin-bottom: 1rem; color: var(--cyan); font-weight: 700; }
+        .footer-links ul { list-style: none; }
+        .footer-links a {
+            color: rgba(255,255,255,0.7); text-decoration: none;
+            display: block; margin-bottom: 0.5rem; transition: color 0.3s;
+        }
+        .footer-links a:hover { color: var(--cyan); }
+
+        .footer-bottom {
+            max-width: 1400px; margin: 2rem auto 0; padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center; color: rgba(255,255,255,0.5);
+        }
+
+        @media (max-width: 968px) {
+            .nav-links { display: none; }
+            .page-hero h1 { font-size: 2rem; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="logo.png" alt="スマートフロー" class="logo-img"></a>
+            <ul class="nav-links">
+                <li><a href="index.html#services">サービス</a></li>
+                <li><a href="index.html#benefits">導入効果</a></li>
+                <li><a href="index.html#pricing">料金</a></li>
+                <li><a href="portfolio.html">ポートフォリオ</a></li>
+                <li><a href="index.html#about">代表者について</a></li>
+                <li><a href="index.html#contact">お問い合わせ</a></li>
+            </ul>
+            <a href="contact.html" class="cta-button">無料相談</a>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <span class="section-label">PORTFOLIO</span>
+        <h1>支援実績・ポートフォリオ</h1>
+        <p>これまでのAI自動化・DX支援の実績をご紹介します</p>
+    </section>
+
+    <section class="portfolio">
+        <div class="container">
+            <div class="portfolio-grid">
+
+                <!-- 1 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, var(--cyan) 0%, #3AB8B8 100%);">📊</div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">バックオフィス自動化</span>
+                        <h3>決済書 → 財務諸表 自動変換ツール</h3>
+                        <p class="client">対象：社内経理</p>
+                        <p>決済書をOCRで解析・構造化し、財務諸表形式のExcelとして自動出力するツールをフロントエンドからバックエンドまで一貫して構築。</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Next.js</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">Google Cloud Document AI</span>
+                            <span class="tag">Claude API</span>
+                            <span class="tag">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, var(--orange) 0%, #E8956A 100%);">🏗️</div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">業務システム連携</span>
+                        <h3>kintone連携アプリ開発</h3>
+                        <p class="client">対象：建設会社A（事務員向け）</p>
+                        <p>kintoneと外部サービスを連携させ、自動通知・データ同期を実現。業務の属人化解消に貢献。</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">kintone</span>
+                            <span class="tag">Retool</span>
+                            <span class="tag">Mailchimp</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Google Sheets</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, var(--purple) 0%, #7A5A8E 100%);">🛡️</div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">SaaS開発</span>
+                        <h3>保険証券 AI読み取り・管理ツール</h3>
+                        <p class="client">対象：保険代理店A</p>
+                        <p>保険証券の画像をAIで解析し、構造化データとして抽出するSaaSを開発。月額制での提供を実現。</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">Claude API</span>
+                            <span class="tag">Supabase</span>
+                            <span class="tag">Vercel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, var(--primary-yellow) 0%, #E8C020 100%);">📚</div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">AI研修</span>
+                        <h3>AI研修プログラム開発・提供</h3>
+                        <p class="client">対象：製造業・士業など複数社</p>
+                        <p>業種別にカスタマイズした研修を設計・提供。Lancers公式ウェビナー講師としても登壇。</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Microsoft Copilot</span>
+                            <span class="tag">ChatGPT</span>
+                            <span class="tag">Claude</span>
+                            <span class="tag">Gemini</span>
+                            <span class="tag">研修設計</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);">📇</div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">LINE自動化</span>
+                        <h3>LINE名刺BOT開発</h3>
+                        <p class="client">対象：中小企業</p>
+                        <p>名刺を撮影するだけでOCR解析し、指定アドレスへ自動メール送信する自動化ツール。</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">LINE</span>
+                            <span class="tag">Google Apps Script</span>
+                            <span class="tag">Amazon SES</span>
+                            <span class="tag">OCR</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);">🤖</div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">AIチャットボット</span>
+                        <h3>Difyナレッジチャットボット構築</h3>
+                        <p class="client">対象：専門サービス企業A</p>
+                        <p>社内情報を活用したRAGチャットボットを構築。問い合わせ対応工数を大幅削減。</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Dify</span>
+                            <span class="tag">RAG</span>
+                            <span class="tag">AI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, var(--orange) 0%, var(--primary-yellow) 100%);">📝</div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">業務自動化</span>
+                        <h3>Web会議 → Notion 自動議事録パイプライン</h3>
+                        <p class="client">対象：社内導入</p>
+                        <p>会議の文字起こしから要約、Notionへの保存までを完全自動化。議事録作成の工数をゼロに。</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">tldv</span>
+                            <span class="tag">Zapier</span>
+                            <span class="tag">Claude API</span>
+                            <span class="tag">Notion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #FF6B6B 0%, var(--orange) 100%);">📱</div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">SNSマーケティング</span>
+                        <h3>SNSマーケティング戦略立案</h3>
+                        <p class="client">対象：OFF Terrasse 足柄別邸（BBQ・サウナ施設）</p>
+                        <p>Threads成長ロードマップの策定とコンテンツ企画を担当。スタッフアカウントによるUGCスタイルの運用設計。</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Threads</span>
+                            <span class="tag">SNS戦略</span>
+                            <span class="tag">コンテンツ企画</span>
+                            <span class="tag">UGC</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png" alt="スマートフロー" class="logo-img">
+                <p>中小企業のバックオフィス業務をAIで自動化し、本来注力すべき業務にリソースを集中させるサポートをします。</p>
+                <p style="font-size:0.9rem;">代表：小澤 千智（おざわ ちさと）<br>AI導入支援・研修</p>
+            </div>
+            <div class="footer-links">
+                <h4>サービス</h4>
+                <ul>
+                    <li><a href="index.html#services">請求書処理</a></li>
+                    <li><a href="index.html#services">経費精算</a></li>
+                    <li><a href="index.html#services">データ入力</a></li>
+                    <li><a href="index.html#services">チャットボット</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>企業情報</h4>
+                <ul>
+                    <li><a href="index.html#about">代表者について</a></li>
+                    <li><a href="portfolio.html">ポートフォリオ</a></li>
+                    <li><a href="https://note.com/chisato162" target="_blank">ブログ（note）</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>お問い合わせ</h4>
+                <ul>
+                    <li><a href="mailto:chisato.ozawa@smartflowjp.com">chisato.ozawa@smartflowjp.com</a></li>
+                    <li><a href="tel:08067936223">080-6793-6223</a></li>
+                    <li><a href="contact.html">無料相談予約</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SmartFlow. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
